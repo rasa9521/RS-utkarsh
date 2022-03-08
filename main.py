@@ -15,7 +15,7 @@ import logging
 # from details import api_id, api_hash, bot_token
 from urllib.parse import unquote
 
-import requests
+# import requests
 # bot = Client(
 #     "bot",
 #     api_id=api_id,
@@ -35,7 +35,7 @@ async def start(bot, update):
                               "**NOW:-** "
                                        
                                        "Press **/login** to continue..\n\n"
-                                     "Bot made by **ACE**" )
+                                     "Bot made by **DRAGO**" )
 
 
 
@@ -101,24 +101,24 @@ async def account_login(bot: Client, m: Message):
     x=await m.reply_text(msg)
         # await m.reply_text(name)
         #await m.reply_text(pdf_title)
-    await m.reply_text("**Send resolution in which you want to download course :**")
-    input2: Message = await bot.listen(editable.chat.id)
-    raw_text1 = input2.text
+    # await m.reply_text("**Send resolution in which you want to download course :**")
+    # input2: Message = await bot.listen(editable.chat.id)
+    # raw_text1 = input2.text
     
-    await m.reply_text("**Send Batch id or _id:**")
-    input3: Message = await bot.listen(editable.chat.id)
-    raw_text3 = input3.text
+    # await m.reply_text("**Send Batch id:**")
+    # input3: Message = await bot.listen(editable.chat.id)
+    # raw_text3 = input3.text
 
-    editable4= await m.reply_text("Now send the **Thumb url**\nEg : ```https://telegra.ph/file/d9e24878bd4aba05049a1.jpg```\n\nor Send **no**")
-    input6 = message = await bot.listen(editable.chat.id)
-    raw_text6 = input6.text
+    # editable4= await m.reply_text("Now send the **Thumb url**\nEg : ```https://telegra.ph/file/d9e24878bd4aba05049a1.jpg```\n\nor Send **no**")
+    # input6 = message = await bot.listen(editable.chat.id)
+    # raw_text6 = input6.text
 
-    thumb = input6.text
-    if thumb.startswith("http://") or thumb.startswith("https://"):
-        getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
-        thumb = "thumb.jpg"
-    else:
-        thumb == "no"
+    # thumb = input6.text
+    # if thumb.startswith("http://") or thumb.startswith("https://"):
+    #     getstatusoutput(f"wget '{thumb}' -O 'thumb.jpg'")
+    #     thumb = "thumb.jpg"
+    # else:
+    #     thumb == "no"
         
     xx =await m.reply_text("Genrating Course txt in this id")
     count =1
@@ -130,7 +130,7 @@ async def account_login(bot: Client, m: Message):
             name = book["title"]
             title = f"{_id}. {name}"
             html_file = f"./htmls/{title}.html"
-            book_res = requests.get(utk_book_url.format(raw_text3))
+            book_res = requests.get(utk_book_url.format(_id))
             z = zipfile.ZipFile(io.BytesIO(book_res.content))
             file_json = json.loads(z.read("json.txt"))
             topics = {}
@@ -160,111 +160,95 @@ async def account_login(bot: Client, m: Message):
                             else:
                                 res_id = res_link.split("/")[4].split("-")[0]
                                 res_link = f"http://cdn.jwplayer.com/manifests/{res_id}.m3u8"
-                    # elif res_type == "Reference Web Links":
-                    #     pass
-                    # else:
-                    #     continue
+                    elif res_type == "Reference Web Links":
+                        pass
+                    else:
+                        continue
                 # print(res_name + ":" + res_link)
-                # await m.reply_text(res_name + ":" + res_link) 
+                # await m.reply_text(res_name + ":" + res_link)
                 dd =f'{res_name}({topic_name}):{res_link}\n'
+                   
                 with open(f"file.txt", "w", encoding='utf-8') as f:
                     vv+=dd 
                     f.write(vv)
-        await m.reply_document(f"file.txt",caption=msg)    
-
-
-                if "drive" in res_link:
-                    try:
-                        gd = res_link[32:-17]
-                        link=f"https://drive.google.com/u/0/uc?id={gd}&export=download"
-                        # print(link)
-                    except Exception:
-                        continue
                 
-                elif ("youtube") in res_link:
+        await m.reply_document(f"file.txt",caption=msg)
+         
+        await xx.delete(True)
+
+
+            #     dd = f'**{res_name}**({topic_name}):```{res_link}```\n'
+            #     if len(f"{vv}{dd}")>4096:
+            #         await m.reply_text(dd)
+            #         vv = ""
+            #     vv+=dd  
+            # await m.reply_text(vv)
+    #         if "youtu" in res_link:
+    #             if raw_text1 in ["144", "240", "480"]:
+    #                 ytf = f'bestvideo[height<={raw_text1}][ext=mp4]+bestaudio[ext=m4a]'
+    #             elif raw_text1 == "360":
+    #                 ytf = 18
+    #             elif raw_text1 == "720":
+    #                 ytf = 22
+    #             else:
+    #                 ytf = 18
+    #         else:
+    #             ytf=f"bestvideo[height<={raw_text1}]"
+
+    #         if ytf == f'bestvideo[height<={raw_text1}][ext=mp4]+bestaudio[ext=m4a]':
+    #             cmd = f'yt-dlp -o "{res_name}.mp4" -f "{ytf}" "{res_link}"'
+    #         elif raw_text1 == "no":
+    #             cmd=f'yt-dlp -o "{res_name}.mp4" "{res_link}"'
+    #         elif "jwplayer" in res_link and raw_text1 in ["144", "240","360", "480","720","no"]:
+    #             cmd=f'yt-dlp -o "{res_name}.mp4" "{res_link}"'    
+    #         elif "google" in res_link and raw_text1 in ["144", "240","360", "480","720","no"]:
+    #             await m.reply_text(f'**{res_name}**\n\n```{res_link}```')
+    #         elif "upload/books" in res_link:
+    #             await m.reply_text("not a valid link")
+    #                 # elif f'{res_id}' in res_link:
+    #                 #     await m.reply_text(res_id)
+    #         else:
+    #             cmd = f'yt-dlp -o "{res_name}.mp4" -f "{ytf}+bestaudio" "{res_link}"'
                     
-                    link = res_link
-                elif ("jwplayer") in res_link:
-                    link =res_link
-                else:
-                    pass
-                
-                # print(f'{res_name}\n{link}\n\n')
-        
-
-
-                if "youtu" in link:
-                    if raw_text1 in ["144", "240", "480"]:
-                        ytf = f'bestvideo[height<={raw_text1}][ext=mp4]+bestaudio[ext=m4a]'
-                    elif raw_text1 == "360":
-                        ytf = 18
-                    elif raw_text1 == "720":
-                        ytf = 22
-                    else:
-                        ytf = 18
-                else:
-                    ytf=f"bestvideo[height<={raw_text1}]"
-
-                if ytf == f'bestvideo[height<={raw_text1}][ext=mp4]+bestaudio[ext=m4a]':
-                    cmd = f'yt-dlp -o "{res_name}.mp4" -f "{ytf}" "{link}"'
-                elif raw_text1 == "no":
-                    cmd=f'yt-dlp -o "{res_name}.mp4" "{link}"'
-                elif "jwplayer" in link and raw_text1 in ["144", "240","360", "480","720","no"]:
-                    cmd=f'yt-dlp -o "{res_name}.mp4" "{link}"'    
-                elif "drive" in link and raw_text1 in ["144", "240","360", "480","720","no"]:
-                    cmd=f'yt-dlp -o "{res_name}.pdf" "{link}"'
-                elif "upload/books" in link:
-                    await m.reply_text("not a valid link")
-                        # elif f'{res_id}' in res_link:
-                        #     await m.reply_text(res_id)
-                else:
-                    cmd = f'yt-dlp -o "{res_name}.mp4" -f "{ytf}+bestaudio" "{link}"'
-                        
-#                 print(res_link)
+    #         print(res_link)
             
                 
-                cc = f"**Title** : {res_name}\n**Topic :** {topic_name}\n\n**Index - {count}**"
-                show = f"**Downloading:-\n\n{res_name}\n\nLink:-** ```{link}```"
-                prog = await m.reply_text(show)
-                    # os.system(cmd)
-                try:
-                    download_cmd = f"{cmd} -R 25 --fragment-retries 25 --external-downloader aria2c --downloader-args 'aria2c: -x 16 -j 32'"
-                    os.system(download_cmd)
-                    if cmd ==f'yt-dlp -o "{res_name}.pdf" "{link}"' or "drive" in link:
-                        filename=f"{res_name}.pdf"
-                        await m.reply_document(f'{res_name}.pdf', caption=cc)
+    # #             cc = f"**Title** : {res_name}\n**Batch Title :** {topic_name}\n\n**Index - {count}**"
+    # #             show = f"**Downloading:-\n\n{res_name}\n\nLink:-** ```{res_link}```"
+    # #             prog = await m.reply_text(show)
+    # #                 # os.system(cmd)
+    # #             try:
+    # #                 download_cmd = f"{cmd} -R 25 --fragment-retries 25 --external-downloader aria2c --downloader-args 'aria2c: -x 16 -j 32'"
+    # #                 os.system(download_cmd)
 
+    # #                 filename = f"{res_name}.mp4"
+    # #                 subprocess.run(f'ffmpeg -i "{filename}" -ss 00:00:20 -vframes 1 "{filename}.jpg"', shell=True)
+    # #                 await prog.delete (True)
 
-                    else:
-                        filename = f"{res_name}.mp4"
-                        subprocess.run(f'ffmpeg -i "{filename}" -ss 00:00:20 -vframes 1 "{filename}.jpg"', shell=True)
-                        await prog.delete (True)
+    # #                 reply = await m.reply_text(f"Uploading Video - ```{res_name}```")
 
-                        reply = await m.reply_text(f"Uploading Video - ```{res_name}```")
+    # #                 try:
+    # #                     if thumb == "no":
+    # #                        thumbnail = f"{filename}.jpg"
+    # #                     else:
+    # #                          thumbnail = thumb
+    # #                 except Exception as e:
+    # #                     await m.reply_text(str(e))
 
-                        try:
-                            if thumb == "no":
-                                thumbnail = f"{filename}.jpg"
-                            else:
-                                thumbnail = thumb
-                        except Exception as e:
-                            await m.reply_text(str(e))
+    # #                 dur = int(helper.duration(filename))
+    # #                 start_time = time.time()
+    # #                 await m.reply_video(f"{res_name}.mp4",caption=cc, supports_streaming=True,height=720,width=1280,thumb=thumbnail,duration=dur, progress=progress_bar,progress_args=(reply,start_time))
+    # #                 count+=1
+    # #                 os.remove(f"{res_name}.mp4")
+    # #                 os.remove(f"{filename}.jpg")
+    # #                 await reply.delete (True)
 
-                        dur = int(helper.duration(filename))
-                        start_time = time.time()
-                        await m.reply_video(f"{res_name}.mp4",caption=cc, supports_streaming=True,height=720,width=1280,thumb=thumbnail,duration=dur, progress=progress_bar,progress_args=(reply,start_time))
-                        count+=1
-                        os.remove(f"{res_name}.mp4")
-                        os.remove(f"{filename}.jpg")
-                        await reply.delete (True)
-
-                except Exception as e:
-                    await m.reply_text(f'**Video downloading failed\nor not a valid video link** ❌\n**Name :** {res_name}\n\n**Link :** ```{link}```\n\n{e}')
-                    continue
-                    time.sleep(1)
+    # #             except Exception as e:
+    # #                 await m.reply_text(f'**Video downloading failed\nor not a valid video link** ❌\n**Name :** {res_name}\n\n**Link :** ```{res_link}```\n\n{e}')
+    # #                 continue
+    # #                 time.sleep(1)
     except Exception as e:   
-        await m.reply_text(f'{e}')
-        print(e)
+        await m.reply_text(f'{e}')     
     await m.reply_text('Done')   
 
 
