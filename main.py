@@ -40,7 +40,7 @@ async def start(bot, update):
 
 
 logger = logging.getLogger()
-utk_url = "https://live-wsshop.e-utkarsh.com/log/login"
+utk_url = "https://live-wsshop.e-utkarsh.com/login"
 utk_books_url =  "https://live-wsuser.e-utkarsh.com/api/getBooksListForUser"
 utk_book_url = "https://live-wsbook.e-utkarsh.com/metainfo/getAllChaptersMetaInfo?siteId=1&bookId={}"
 
